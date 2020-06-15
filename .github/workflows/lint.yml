@@ -4,14 +4,14 @@ on:
   push
 
 jobs:
-  post_tag:
+  lint:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
     - name: Setup Python
       uses: actions/setup-python@v2
       with:
-        python-version: '3.6.5'
+        python-version: '3.6.x'
     - name: Cache pip
       uses: actions/cache@v1
       with:
