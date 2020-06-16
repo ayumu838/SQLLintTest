@@ -26,6 +26,3 @@ jobs:
       run: pip install -r requirements.txt
     - name: Lint Check
       run: sqlint sqls/*.sql -c splint.ini
-      id: lint_check
-    - name: test
-      run: echo ${{steps.lint_check.outputs}}
