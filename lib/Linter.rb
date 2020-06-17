@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class Linter
-
   RESERVED_WORDS = %w[SELECT FROM WHERE JOIN ON AND OR IS NULL NOT USE].freeze
 
   def initialize(file_name)
@@ -10,7 +9,7 @@ class Linter
 
   def exec_lint
     lints = []
-    before = {spaces: 0}
+    before = { spaces: 0 }
     @file.each_line do |line|
       lint, before = lint(line, before)
       lints.push(lint) unless lint.empty?
@@ -22,7 +21,7 @@ class Linter
 
   def lint(line, before)
     results = []
-    line_number = $.
+    line_number = $INPUT_LINE_NUMBER
 
     # USEがあるかチェック
     results.push(check_use_in_first_line(line, line_number))
@@ -56,9 +55,12 @@ class Linter
   def check_reserved_word(line, line_number)
     results = []
     RESERVED_WORDS.each do |reserved_word|
-      if /#{reserved_word}/i =~ line
-        results.push "#{line_number}行目の#{$&}は大文字にする必要があります #{$&} -> #{reserved_word}" if $& != reserved_word
-      end
+      next unless /#{reserved_word}/i =~ line
+
+      match_word = $&
+      next line if /`#{reserved_word}`/i =~ line
+
+      results.push "#{line_number}行目の#{$&}は大文字にする必要があります #{$&} -> #{reserved_word}" if match_word != reserved_word
     end
     results
   end
