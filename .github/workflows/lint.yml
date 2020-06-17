@@ -8,21 +8,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: Setup Python
-      uses: actions/setup-python@v2
+    - name: Setup Ruhby
+      uses: actions/setup-ruby@v1
       with:
-        python-version: '3.6.x'
-    - name: Cache pip
-      uses: actions/cache@v1
-      with:
-        # This path is specific to Ubuntu
-        path: ~/.cache/pip
-        # Look to see if there is a cache hit for the corresponding requirements file
-        key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
-        restore-keys: |
-          ${{ runner.os }}-pip-
-          ${{ runner.os }}-
-    - name: Install dependencies
-      run: pip install -r requirements.txt
-    - name: Lint Check
-      run: sqlint sqls/*.sql -c splint.ini
+        ruby-version: '2.7.x'
+    - name: Lint check
+      run: ruby lib/main.rb
