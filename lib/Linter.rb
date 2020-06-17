@@ -21,7 +21,7 @@ class Linter
 
   def lint(line, before)
     results = []
-    line_number = $INPUT_LINE_NUMBER
+    line_number = $.
 
     # USEがあるかチェック
     results.push(check_use_in_first_line(line, line_number))
