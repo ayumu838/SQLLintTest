@@ -1,4 +1,4 @@
-Use hoge;
+USE hoge;
 
 SELECT
   col1,
