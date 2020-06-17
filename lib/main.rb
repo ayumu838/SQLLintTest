@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require 'pry'
 SQLS_PATH = 'sqls'
 RESERVED_WORDS = %w[SELECT FROM WHERE JOIN ON AND OR IS NULL NOT USE].freeze
 
