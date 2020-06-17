@@ -21,16 +21,17 @@ def file(file_name)
 
   before = { spaces: 0 }
   lints = []
-  file.each_line.with_index do |line, line_number|
-    lint, before = lint(line, line_number, before)
+  file.each_line do |line|
+    lint, before = lint(line, before)
     lints.push(lint) unless lint.empty?
   end
 
   lints.flatten
 end
 
-def lint(line, line_number, before)
+def lint(line, before)
   results = []
+  line_number = $.
 
   # USEがあるかチェック
   results.push(check_use_in_first_line(line, line_number))
