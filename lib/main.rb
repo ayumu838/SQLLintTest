@@ -19,7 +19,7 @@ end
 def file(file_name)
   file = File.new(file_name)
 
-  before = {spaces: 0}
+  before = { spaces: 0 }
   lints = []
   file.each_line do |line|
     lint, before = lint(line, before)
@@ -51,7 +51,7 @@ def lint(line, before)
   [results.compact, before]
 end
 
-def check_use_in_first_line(line,line_number)
+def check_use_in_first_line(line, line_number)
   "#{line_number}行目にUSEがありません" if line_number == 1 && /USE/i !~ line
 end
 
@@ -71,7 +71,9 @@ end
 
 def check_indent(line, line_number, before_space)
   count = space_count(line)
-  "#{line_number}行目のインデントを直してください #{line}, #{count}" unless count == before_space || count == before_space - 2 || count == before_space + 2
+  unless count == before_space || count == before_space - 2 || count == before_space + 2
+    "#{line_number}行目のインデントを直してください"
+  end
 end
 
 def space_count(str)
@@ -79,7 +81,6 @@ def space_count(str)
 end
 
 results = main
-
 results.each do |k, vs|
   p k
   vs.each do |v|
