@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'pry'
 SQLS_PATH = 'sqls'
 RESERVED_WORDS = %w[SELECT FROM WHERE JOIN ON AND OR IS NULL NOT USE].freeze
 
@@ -45,6 +46,9 @@ def lint(line, before)
   # インデントのチェック
   results.push(check_indent(line, line_number, before[:spaces]))
 
+  # 空行が複数行に渡ってあるかチェック
+  results.push(check_duplicate_line(line, line_number, before[:line]))
+
   before[:line] = line
   before[:spaces] = space_count(line)
 
@@ -76,8 +80,14 @@ def check_indent(line, line_number, before_space)
   end
 end
 
+def check_duplicate_line(line, line_number, before_line)
+  if before_line == "\n" && line == "\n"
+    "#{line_number}行目の空行は不要です"
+  end
+end
+
 def space_count(str)
-  str.length - str.lstrip.length
+  str.rstrip.length - str.strip.length
 end
 
 results = main
