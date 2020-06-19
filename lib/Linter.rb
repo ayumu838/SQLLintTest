@@ -55,7 +55,7 @@ class Linter
   def check_reserved_word(line, line_number)
     results = []
     RESERVED_WORDS.each do |reserved_word|
-      next unless /.*[?!^\s](#{reserved_word})/i =~ line
+      next unless /.*[?!^\s](#{reserved_word})\s/i =~ line
 
       match_word = $&.strip
 

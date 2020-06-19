@@ -2,6 +2,8 @@ USE hoge;
 
 SELECT
   `on`,
+  option,
+  onboard,
   col2
 FROM
   foo
