@@ -13,8 +13,6 @@ sql_file_names.each do |file_name|
   results[file_name] = result unless result.empty?
 end
 
-
-
 results.each do |k, vs|
   p k
   vs.each do |v|
