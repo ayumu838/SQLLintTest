@@ -55,9 +55,10 @@ class Linter
   def check_reserved_word(line, line_number)
     results = []
     RESERVED_WORDS.each do |reserved_word|
-      next unless /#{reserved_word}/i =~ line
+      next unless /.*[?!^\s](#{reserved_word})/i =~ line
 
-      match_word = $&
+      match_word = $&.strip
+
       next line if /`#{reserved_word}`/i =~ line
 
       results.push "#{line_number}行目の#{$&}は大文字にする必要があります #{$&} -> #{reserved_word}" if match_word != reserved_word
